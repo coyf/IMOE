@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="TP3Web:war">
+    <output-path>$PROJECT_DIR$/TP3Web/target</output-path>
+    <root id="archive" name="TP3Web-1.0.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="TP3Web:war exploded" />
+    </root>
+  </artifact>
+</component>

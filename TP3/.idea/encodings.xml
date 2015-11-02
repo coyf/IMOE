@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false">
+    <file url="file://$PROJECT_DIR$/TP3EAR" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/TP3EJB" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/TP3Facade" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/TP3Web" charset="UTF-8" />
+  </component>
+</project>

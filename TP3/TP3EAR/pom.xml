@@ -1,0 +1,54 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>TP3EAR</artifactId>
+    <name>TP3EAR</name>
+    <packaging>ear</packaging>
+    <description>Projet EAR permettant le déploiement</description>
+    <parent>
+        <groupId>fr.sigl.imoe.tps</groupId>
+        <artifactId>TP3</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+    <dependencies>
+        <dependency>
+            <groupId>fr.sigl.imoe.tps</groupId>
+            <artifactId>TP3EJB</artifactId>
+            <type>ejb</type>
+        </dependency>
+        <dependency>
+            <groupId>fr.sigl.imoe.tps</groupId>
+            <artifactId>TP3Web</artifactId>
+            <type>war</type>
+        </dependency>
+        <dependency>
+            <groupId>fr.sigl.imoe.tps</groupId>
+            <artifactId>TP3Facade</artifactId>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-ear-plugin</artifactId>
+                <version>2.10.1</version>
+                <configuration>
+                    <version>7</version>
+                    <defaultLibBundleDir>lib</defaultLibBundleDir>
+                    <applicationName>TP3</applicationName>
+                    <modules>
+                        <ejbModule>
+                            <groupId>fr.sigl.imoe.tps</groupId>
+                            <artifactId>TP3EJB</artifactId>
+                        </ejbModule>
+                        <webModule>
+                            <groupId>fr.sigl.imoe.tps</groupId>
+                            <artifactId>TP3Web</artifactId>
+                            <contextRoot>/TP3Web</contextRoot>
+                        </webModule>
+                    </modules>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

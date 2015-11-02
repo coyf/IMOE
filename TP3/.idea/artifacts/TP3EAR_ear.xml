@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="ear" name="TP3EAR:ear">
+    <output-path>$PROJECT_DIR$/TP3EAR/target</output-path>
+    <root id="archive" name="TP3EAR-1.0.0-SNAPSHOT.ear">
+      <element id="artifact" artifact-name="TP3EAR:ear exploded" />
+    </root>
+  </artifact>
+</component>
