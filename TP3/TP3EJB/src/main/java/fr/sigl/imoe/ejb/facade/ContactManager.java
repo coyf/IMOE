@@ -7,6 +7,7 @@ import fr.sigl.imoe.tp3.dto.Contact;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,6 +41,17 @@ public class ContactManager implements ContactManagerRemote{
         em.persist(ce);
         System.out.println("ContactManager: Contact <" + lastname + ", " + firstname + "> persisted");
         return convert(ce);
+    }
+
+    @Override
+    public List<Contact> listerTousContacts() {
+        List<ContactEntity> contact_entities = em.createQuery("FROM ContactEntity ce").getResultList();
+        List<Contact> contacts = new ArrayList<Contact>();
+        for (ContactEntity ce : contact_entities)
+            contacts.add(convert(ce));
+
+        System.out.println("contact list : " + contacts);
+        return contacts;
     }
 
     private ContactEntity convert(Contact contact) {

@@ -13,5 +13,6 @@ import java.util.List;
 public interface ContactManagerRemote {
 
     Contact creerContact(String lastname, String firstname, List<String> telephone);
+    List<Contact> listerTousContacts();
 
 }

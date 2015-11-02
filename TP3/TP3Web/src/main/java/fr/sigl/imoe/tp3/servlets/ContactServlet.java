@@ -30,7 +30,7 @@ public class ContactServlet extends HttpServlet {
     ContactsServiceDelegateMock mock = new ContactsServiceDelegateMock();
 
     /**
-     * Injection de l'EJB PersonManagerRemote.
+     * Injection de l'EJB ContactManagerRemote.
      */
     @EJB
     private ContactManagerRemote manager;
@@ -46,16 +46,9 @@ public class ContactServlet extends HttpServlet {
         super.init(config);
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
-
     protected void listerContact(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("contacts", mock.listerTousContacts());
+        // Récupération des contacts en base
+        request.setAttribute("contacts", manager.listerTousContacts());
         request.getRequestDispatcher("/contacts.jsp").forward(request, response);
     }
 
@@ -67,7 +60,7 @@ public class ContactServlet extends HttpServlet {
         request.setAttribute("contactAdded", true);
         // TODO : ajouter la liste des téléphonnes (pour l'instant mis à null)
         manager.creerContact(request.getParameter("contact_lastname"), request.getParameter("contact_firstname"), null);
-        request.getRequestDispatcher("/contacts.jsp").forward(request, response);
+        listerContact(request, response);
     }
 
     protected void supprimerContact(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -87,7 +80,7 @@ public class ContactServlet extends HttpServlet {
             String url_str = request.getRequestURL().toString().substring(request.getRequestURL().toString().lastIndexOf("/"));
             if (url_str == null)
                 url_str = "/";
-            //System.out.println("url inc : " + url_str);
+
             switch (url_str){
                 case "/contacts" :
                     listerContact(request, response);
