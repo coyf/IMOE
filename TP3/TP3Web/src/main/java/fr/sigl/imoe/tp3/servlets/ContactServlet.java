@@ -1,10 +1,13 @@
 package fr.sigl.imoe.tp3.servlets;
 
+import fr.sigl.imo.tp3.bean.ContactManagerRemote;
 import fr.sigl.imoe.tp3.delegate.ContactsServiceDelegate;
 import fr.sigl.imoe.tp3.delegate.mock.ContactsServiceDelegateMock;
 import fr.sigl.imoe.tp3.dto.Contact;
 
+import javax.ejb.EJB;
 import javax.inject.Inject;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,9 +25,26 @@ import java.util.List;
             urlPatterns = {"/addContact", "/contacts", "/createContact"})
 public class ContactServlet extends HttpServlet {
 
+    // Pour utiliser le bouchon
     @Inject
     ContactsServiceDelegateMock mock = new ContactsServiceDelegateMock();
 
+    /**
+     * Injection de l'EJB PersonManagerRemote.
+     */
+    @EJB
+    private ContactManagerRemote manager;
+
+    /**
+     * Méthode d'initialisation de la Servlet.
+     *
+     * @param config	Informations de configuration de la servlet.
+     * @see javax.servlet.GenericServlet#init(javax.servlet.ServletConfig)
+     */
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+    }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -45,8 +65,8 @@ public class ContactServlet extends HttpServlet {
 
     protected void createContact(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("contactAdded", true);
-        // TODO : ajouter un contact
-
+        // TODO : ajouter la liste des téléphonnes (pour l'instant mis à null)
+        manager.creerContact(request.getParameter("contact_lastname"), request.getParameter("contact_firstname"), null);
         request.getRequestDispatcher("/contacts.jsp").forward(request, response);
     }
 

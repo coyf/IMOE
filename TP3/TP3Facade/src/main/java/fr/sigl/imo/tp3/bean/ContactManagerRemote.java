@@ -1,5 +1,6 @@
 package fr.sigl.imo.tp3.bean;
 
+import fr.sigl.imoe.tp3.dto.Contact;
 import fr.sigl.imoe.tp3.dto.Telephone;
 
 import javax.ejb.Remote;
@@ -11,6 +12,6 @@ import java.util.List;
 @Remote
 public interface ContactManagerRemote {
 
-    void creerContact(String lastname, String firstname, List<String> telephone);
+    Contact creerContact(String lastname, String firstname, List<String> telephone);
 
 }
