@@ -22,7 +22,7 @@ import java.util.List;
  * Created by flo on 02/11/15.
  */
 @WebServlet(name = "ContactListServlet",
-            urlPatterns = {"/addContact", "/contacts", "/createContact"})
+            urlPatterns = {"/addContact", "/contacts", "/createContact", "/deleteContact"})
 public class ContactServlet extends HttpServlet {
 
     // Pour utiliser le bouchon
@@ -64,7 +64,10 @@ public class ContactServlet extends HttpServlet {
     }
 
     protected void supprimerContact(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/delete_contact.jsp").forward(request, response);
+
+        String id = request.getParameter("id");
+        manager.supprimerContact(Integer.parseInt(id));
+        listerContact(request, response);
     }
 
     protected void editerContact(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -80,6 +83,10 @@ public class ContactServlet extends HttpServlet {
             String url_str = request.getRequestURL().toString().substring(request.getRequestURL().toString().lastIndexOf("/"));
             if (url_str == null)
                 url_str = "/";
+            if (url_str.contains("?"))
+                url_str = url_str.substring(0, url_str.indexOf('?'));
+
+            System.out.println("ContactServlet : url_str : " + url_str);
 
             switch (url_str){
                 case "/contacts" :

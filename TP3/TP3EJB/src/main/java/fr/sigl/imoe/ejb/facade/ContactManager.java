@@ -50,9 +50,15 @@ public class ContactManager implements ContactManagerRemote{
         for (ContactEntity ce : contact_entities)
             contacts.add(convert(ce));
 
-        System.out.println("contact list : " + contacts);
         return contacts;
     }
+
+    @Override
+    public void supprimerContact(Integer id) {
+        em.remove(em.find(ContactEntity.class, id));
+    }
+
+
 
     private ContactEntity convert(Contact contact) {
         ContactEntity entity = null;

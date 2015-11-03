@@ -19,7 +19,7 @@
                     <br/>
                 </c:forEach>
                 </td>
-                <td><a href="#">Editer</a><br/><a href=""> Supprimer</a></td>
+                <td><a href="#">Editer</a><br/><a href="deleteContact?id=${contact.getId()}"> Supprimer</a></td>
             </tr>
         </c:forEach>
     </table>
