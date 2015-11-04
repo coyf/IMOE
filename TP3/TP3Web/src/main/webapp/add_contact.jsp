@@ -15,6 +15,13 @@
                 $(wrapper).append('' +
                 '<tr>' +
                 '<td></td>' +
+                '<td>' +
+                '<select>' +
+                '<c:forEach var="type" items="${requestScope.typesTelephone}">' +
+                '<option value="${type}">${type}</option>' +
+                '</c:forEach>' +
+                '</select>' +
+                '</td>' +
                 '<td><input type="text" name="mytext[]" placeholder="autre telephone"/><button class="remove_field">-</button></td>' +
                 '</tr>');
             }
@@ -31,13 +38,22 @@
     <tr>
         <td>Nom :</td>
         <td><input type="text" name="contact_lastname"/></td>
+        <td></td>
     </tr>
     <tr>
         <td>Prenom :</td>
         <td><input type="text" name="contact_firstname"/></td>
+        <td></td>
     </tr>
     <tr>
         <td>Telephone :</td>
+        <td>
+            <select>
+                <c:forEach var="type" items="${requestScope.typesTelephone}">
+                    <option value="${type}">${type}</option>
+                </c:forEach>
+            </select>
+        </td>
         <td><input type="text" name="mytext[]" placeholder="telephone principal"><button class="add_field_button">+</button></td>
     </tr>
     </table>

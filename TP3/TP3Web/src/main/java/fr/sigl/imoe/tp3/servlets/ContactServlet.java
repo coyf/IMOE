@@ -53,6 +53,7 @@ public class ContactServlet extends HttpServlet {
     }
 
     protected void ajouterContact(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("typesTelephone", manager.listerTousTypesTelephone());
         request.getRequestDispatcher("/add_contact.jsp").forward(request, response);
     }
 

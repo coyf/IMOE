@@ -3,6 +3,8 @@ package fr.sigl.imoe.ejb.facade;
 import fr.sigl.imo.tp3.bean.ContactManagerRemote;
 import fr.sigl.imoe.ejb.entity.tp.bean.ContactEntity;
 import fr.sigl.imoe.tp3.dto.Contact;
+import fr.sigl.imoe.tp3.dto.Telephone;
+import fr.sigl.imoe.tp3.dto.TypeTelephone;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -58,6 +60,18 @@ public class ContactManager implements ContactManagerRemote{
         em.remove(em.find(ContactEntity.class, id));
     }
 
+    @Override
+    public List<String> listerTousTypesTelephone() {
+        // Récupération des valeurs de l'énumération TypeTelephone
+        TypeTelephone[] types = TypeTelephone.values();
+        ArrayList<String> values = new ArrayList<>();
+
+        // Création de la liste
+        for (TypeTelephone t : types)
+            values.add(t.name());
+
+        return values;
+    }
 
 
     private ContactEntity convert(Contact contact) {
