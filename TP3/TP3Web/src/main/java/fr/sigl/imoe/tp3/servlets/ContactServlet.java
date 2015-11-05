@@ -4,6 +4,7 @@ import fr.sigl.imo.tp3.bean.ContactManagerRemote;
 import fr.sigl.imoe.tp3.delegate.ContactsServiceDelegate;
 import fr.sigl.imoe.tp3.delegate.mock.ContactsServiceDelegateMock;
 import fr.sigl.imoe.tp3.dto.Contact;
+import fr.sigl.imoe.tp3.dto.Telephone;
 
 import javax.ejb.EJB;
 import javax.inject.Inject;
@@ -15,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 
 
@@ -46,6 +49,12 @@ public class ContactServlet extends HttpServlet {
         super.init(config);
     }
 
+    protected Telephone ajouterTelephone(String phone_str, String phone_type_str)
+    {
+        Telephone tel = manager.creerTelephone(phone_str, phone_type_str);
+        return tel;
+    }
+
     protected void listerContact(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Récupération des contacts en base
         request.setAttribute("contacts", manager.listerTousContacts());
@@ -59,8 +68,19 @@ public class ContactServlet extends HttpServlet {
 
     protected void createContact(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("contactAdded", true);
-        // TODO : ajouter la liste des téléphonnes (pour l'instant mis à null)
-        manager.creerContact(request.getParameter("contact_lastname"), request.getParameter("contact_firstname"), null);
+        List<Telephone> telephones = new ArrayList<>();
+        String phone = request.getParameter("phone_1");
+        String phone_type = request.getParameter("phone_1_type");
+        // On itère sur chacun des numéros de téléphones ajoutés
+        int x = 2;
+        while (phone != null && phone != ""){
+            Telephone tel = ajouterTelephone(phone, phone_type);
+            telephones.add(tel);
+            phone = request.getParameter("phone_" + x);
+            phone_type = request.getParameter("phone_" + x + "_type");
+            x++;
+        }
+        manager.creerContact(request.getParameter("contact_lastname"), request.getParameter("contact_firstname"), telephones);
         listerContact(request, response);
     }
 

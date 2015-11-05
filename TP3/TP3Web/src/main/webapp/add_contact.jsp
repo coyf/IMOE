@@ -2,27 +2,33 @@
 <script src="<c:url value="includes/jquery-1.11.3.min.js"/>"></script>
 
 <script>
+    // Script en JQuery permettant l'ajout dynamique de nouvelle lignes de formulaires
+    // pour un renseigner un nouveau contact telephonique
     $(document).ready(function() {
         var max_fields      = 10; //maximum input boxes allowed
         var wrapper         = $(".input_fields_wrap"); //Fields wrapper
         var add_button      = $(".add_field_button"); //Add button ID
-
         var x = 1; //initlal text box count
         $(add_button).click(function(e){ //on add input button click
             e.preventDefault();
             if(x < max_fields){ //max input box allowed
                 x++; //text box increment
+                var phone_name = "phone_" + x;
                 $(wrapper).append('' +
                 '<tr>' +
                 '<td></td>' +
                 '<td>' +
-                '<select>' +
+                '<select name=\"' +
+                 phone_name +
+                '_type\">' +
                 '<c:forEach var="type" items="${requestScope.typesTelephone}">' +
                 '<option value="${type}">${type}</option>' +
                 '</c:forEach>' +
                 '</select>' +
                 '</td>' +
-                '<td><input type="text" name="mytext[]" placeholder="autre telephone"/><button class="remove_field">-</button></td>' +
+                '<td><input type="text" name=\"' +
+                 phone_name +
+                '\" placeholder="autre telephone"/><button class="remove_field">-</button></td>' +
                 '</tr>');
             }
         });
@@ -48,13 +54,16 @@
     <tr>
         <td>Telephone :</td>
         <td>
-            <select>
+            <select name="phone_1_type">
                 <c:forEach var="type" items="${requestScope.typesTelephone}">
                     <option value="${type}">${type}</option>
                 </c:forEach>
             </select>
         </td>
-        <td><input type="text" name="mytext[]" placeholder="telephone principal"><button class="add_field_button">+</button></td>
+        <td>
+            <input type="text" name="phone_1" placeholder="telephone principal">
+            <button class="add_field_button">+</button>
+        </td>
     </tr>
     </table>
     <hr/>

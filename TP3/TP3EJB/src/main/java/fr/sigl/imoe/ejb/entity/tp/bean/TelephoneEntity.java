@@ -45,4 +45,12 @@ public class TelephoneEntity implements Serializable{
     public void setValeur(String valeur) {
         this.valeur = valeur;
     }
+
+    public TypeTelephone getType() {
+        return type;
+    }
+
+    public void setType(TypeTelephone type) {
+        this.type = type;
+    }
 }

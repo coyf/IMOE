@@ -13,7 +13,8 @@ import java.util.List;
 @Remote
 public interface ContactManagerRemote {
 
-    Contact creerContact(String lastname, String firstname, List<String> telephone);
+    Contact creerContact(String lastname, String firstname, List<Telephone> telephone);
+    Telephone creerTelephone(String valeur, String type);
     List<Contact> listerTousContacts();
     void supprimerContact(Integer id);
     List<String> listerTousTypesTelephone();

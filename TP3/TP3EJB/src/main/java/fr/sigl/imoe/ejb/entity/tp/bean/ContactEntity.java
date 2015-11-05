@@ -2,6 +2,8 @@ package fr.sigl.imoe.ejb.entity.tp.bean;
 
 
 
+import fr.sigl.imoe.tp3.dto.Telephone;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -22,6 +24,9 @@ public class ContactEntity implements Serializable{
     private Integer id;
     private String nom;
     private String prenom;
+
+    @ElementCollection
+    private List<Integer> telephoneIds;
 
     public ContactEntity(){
         super();
@@ -49,5 +54,13 @@ public class ContactEntity implements Serializable{
 
     public void setPrenom(String prenom) {
         this.prenom = prenom;
+    }
+
+    public List<Integer> getTelephoneIds() {
+        return telephoneIds;
+    }
+
+    public void setTelephoneIds(List<Integer> telephoneIds) {
+        this.telephoneIds = telephoneIds;
     }
 }
