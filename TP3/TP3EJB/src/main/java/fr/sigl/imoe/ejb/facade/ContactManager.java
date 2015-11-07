@@ -28,12 +28,29 @@ public class ContactManager implements ContactManagerRemote{
      * Contexte de persistance.
      */
 
+
     /*
         Équivalent du SessionManager dans hibernate (pour les beginTransaction() et commit()-> ici implicite dans
         chacune des méthodes de cette classe Stateless)
     */
     @PersistenceContext(unitName = "ContactManager")
     protected EntityManager em;
+
+    @Override
+    public void actualiserContact(Integer id, String lastname, String firstname, List<Telephone> telephones) {
+        // suppression du contact
+        ContactEntity old_ce = em.find(ContactEntity.class, id);
+        supprimerContact(old_ce.getId());
+        // creation du contact avec les nouvelles informations
+        Contact c = creerContact(lastname, firstname, telephones);
+        System.out.println("ContactManager: actualiserContact: nouveau contact : nom : <" + c.getNom() + ">"
+                + " prenom : <" + c.getPrenom() + "> id <" + c.getId() + "> ..");
+        for (Telephone tel : c.getTelephones()){
+            System.out.println("ContactManager: actualiserContact: nouvea contact telephones : valeur <"
+                    + tel.getValeur() + "> id <" + tel.getId() + "> type <" + tel.getType() + ">");
+        }
+
+    }
 
     @Override
     public Contact creerContact(String lastname, String firstname, List<Telephone> telephone) {
@@ -77,6 +94,12 @@ public class ContactManager implements ContactManagerRemote{
     }
 
     @Override
+    public void supprimerTelephone(Integer id) {
+        em.remove(em.find(TelephoneEntity.class, id));
+    }
+
+
+    @Override
     public List<String> listerTousTypesTelephone() {
         // Récupération des valeurs de l'énumération TypeTelephone
         TypeTelephone[] types = TypeTelephone.values();
@@ -87,6 +110,11 @@ public class ContactManager implements ContactManagerRemote{
             values.add(t.name());
 
         return values;
+    }
+
+    @Override
+    public Contact recupererContact(Integer id) {
+        return convert(em.find(ContactEntity.class, id));
     }
 
 
